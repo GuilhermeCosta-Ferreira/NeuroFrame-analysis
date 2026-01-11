@@ -1,9 +1,9 @@
 [project]
-name = "nf-analysis"
+name = "neuroframe-analysis"
 version = "0.1.0"
-description = ""
+description = "The package to help you analyse all the data you generate during the atlas construction"
 authors = [
-    {name = "GuilhermeCF",email = "guicostaferreira.2003@gmail.com"}
+    {name = "GuilhermeCF",email = "guilherme.henriquesdacostaferreira@epfl.ch"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
@@ -11,7 +11,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "nf_analysis", from = "src"}]
+packages = [{include = "neuroframe_analysis", from = "src"}]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
