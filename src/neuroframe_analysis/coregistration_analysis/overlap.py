@@ -4,14 +4,14 @@
 import numpy as np
 from skimage.filters import threshold_otsu
 
-from ..dataclass import Misalignement
+from ..dataclass import Overlap
 
 
 
 # ================================================================
 # 1. Section: Obtaining the Mouse Misalignment
 # ================================================================
-def get_misalignment(ct: np.ndarray, brain_mask: np.ndarray) -> Misalignement:
+def get_overlap(ct: np.ndarray, brain_mask: np.ndarray) -> Overlap:
     # 1. Extract the skull from the ct
     skull_threshold = threshold_otsu(ct[ct>0], 256)
     skull = np.where(ct > skull_threshold, 1, 0)
@@ -22,6 +22,6 @@ def get_misalignment(ct: np.ndarray, brain_mask: np.ndarray) -> Misalignement:
 
     # 3. Compute the maximum possible overlap for % calculation
     max_overlap = np.sum(skull)
-    misalignement = Misalignement(overlap_count, max_overlap, overlap_mask=overlap)
+    misalignement = Overlap(overlap_count, max_overlap, overlap_mask=overlap)
 
     return misalignement

@@ -10,8 +10,8 @@ import numpy as np
 # 1. Section: Storing Misalignment
 # ================================================================
 @dataclass
-class Misalignement:
-    """Class for keeping track of misalignement information"""
+class Overlap:
+    """Class for keeping track of overlap information"""
     nr_overlap_voxels: int
     nr_maximum_overlap_voxels: int
     overlap_mask: np.ndarray | None = None
