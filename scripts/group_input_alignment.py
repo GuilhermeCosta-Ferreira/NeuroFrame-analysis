@@ -6,7 +6,7 @@ import numpy as np
 
 from matplotlib import pyplot as plt
 
-from neuroframe_analysis import Mouse, get_misalignment, soften_edge, get_folders, plot_group_overlap_bar
+from neuroframe_analysis import Mouse, get_overlap, soften_edge, get_folders, plot_group_overlap_bar
 
 
 
@@ -32,7 +32,7 @@ for folder in folders:
     mri = mouse.mri.data
 
     # 3. Compute the misalignment
-    misalignement = get_misalignment(ct, brain_mask)
+    misalignement = get_overlap(ct, brain_mask)
     misalignment_per_store.append(misalignement.percentage_overlap())
     print(f"{mouse.id} had {misalignement.percentage_overlap()}% misalignment")
 

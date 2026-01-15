@@ -4,12 +4,15 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
+from ..plots import save_figure_protocol, SaveConfiguration
+
 
 
 # ================================================================
 # 1. Section: Plots
 # ================================================================
-def plot_group_overlap_bar(overlaps: np.ndarray | list, mice_list: np.ndarray | list | None = None) -> None:
+@save_figure_protocol
+def plot_group_overlap_bar(overlaps: np.ndarray | list, mice_list: np.ndarray | list | None = None) -> tuple:
     nr_data = len(overlaps)
 
     # Define the x labels
@@ -22,21 +25,35 @@ def plot_group_overlap_bar(overlaps: np.ndarray | list, mice_list: np.ndarray | 
     extended_x_pos = np.arange(-0.5, nr_data + 0.5, 1)
     print(extended_x_pos)
 
-    plt.figure()
-    plt.bar(x_pos, overlaps)
-    plt.hlines(mean_overlap, -0.5, nr_data - 0.5,
-        color="NR_DARK_BLUE")
-    plt.fill_between(extended_x_pos, mean_overlap - std_overlap, mean_overlap + std_overlap,
-        alpha=0.5,
-        color="NR_DARK_BLUE",
-        edgecolor=None)
+    fig, ax = plt.subplots()
+    ax.fill_between(extended_x_pos, mean_overlap - std_overlap, mean_overlap + std_overlap,
+        alpha=0.3,
+        color="NR_GREY",
+        edgecolor=None,
+        label=f"STD of the Overlap: ±{np.round(std_overlap, 2)}%",
+        zorder=1)
+    ax.hlines(mean_overlap, -0.5, nr_data - 0.5,
+        color="NR_GREY",
+        label=f"Mean Overlap {np.round(mean_overlap, 2)}%",
+        linestyles='--',
+        zorder=2)
+    ax.bar(x_pos, overlaps,
+        zorder=3)
 
-    plt.ylim((0,20))
-    plt.xlabel("Mice")
-    plt.ylabel("Overlap Percentage (%)")
+    ax.set_ylim((0,20))
+    ax.set_xlabel("Mice")
+    ax.set_ylabel("Overlap Percentage (%)")
 
-    plt.title("Study Group Brain-Skull Global Overlap")
-    plt.tight_layout()
+    ax.set_title("Study Group Brain-Skull Global Overlap")
+    ax.legend()
+    fig.tight_layout()
     plt.show(block=False)
 
-    #return fig, ax
+    return fig, ax, _overlap_plot_config()
+
+def _overlap_plot_config():
+    config = SaveConfiguration(
+        file_name="group_overlap_plot"
+    )
+
+    return config
