@@ -57,6 +57,6 @@ if __name__ == "__main__":
     std_hole_volume = np.round(np.std(holes_volume_store), 2)
     print(f"\nMean Hole Volume: {mean_hole_volume}mm³ (std: {std_hole_volume}mm³)")
 
-    #plot_group_hole_volume_bar(holes_volume_store, folders)
+    plot_group_hole_volume_bar(holes_volume_store, folders)
 
     plt.show()
